@@ -1,29 +1,107 @@
-function createUSer(element) {
-    return document.createElement(element);
-}
+let employees = [];
+const urlAPI = `https://randomuser.me/api/?results=12&inc=name, picture,email, location, phone, dob &noinfo &nat=US`
+const gridContainer = document.querySelector(".grid-container");
+const overlay = document.querySelector(".overlay");
+const modalContainer = document.querySelector(".modal-content");
+const modalClose = document.querySelector(".modal-close");
 
-function append(parent, element) {
-    return document.appendChild(element);
-}
+fetch('https://randomuser.me/api/?nat=us&results=12')
+    .then(res => res.json())
+    .then(res => res.results)
+    .then(displayEmployees)
+    .catch(err => console.log(err))
 
-fetch('https://randomuser.me)
-    .then((resp) => resp.json())
-    .then(function (data) {
-        let users = data.results;
-        return users.map(function (user) {
-            let li = createUser('li'),
-            img = createUser('img'),
-            p = createUser('p');
-            img.src = user.picture.large;
-            p.innerHTML = `${user.name.first} ${user.name.last}}`
-            append(li, img);
-            append(li, p);
-            appened(document.querySelector('#users'), li);         
-        })
-        .catch(function(error) {
-            console.log(error);
-        })
-    })
-    .catch(function (error) {
-
+function displayEmployees(employeeData) {
+    employees = employeeData;
+    let employeeHTML = '';
+    employees.forEach((employee, index) => {
+        let name = employee.name;
+        let email = employee.email;
+        let city = employee.location.city;
+        let picture = employee.picture;
+        employeeHTML += `
+        <div class="card" data-index="${index}">
+        <img class="avatar" src="${picture.large}" />
+        <div class="text-container">
+            <h2 class="name">${name.first} ${name.last}</h2>
+            <p class="email">${email}</p>
+            <p class="address">${city}</p>
+        </div>
+    </div>
+    `
     });
+    gridContainer.innerHTML = employeeHTML;
+}
+
+function displayModal(index) {
+    let {name, dob, phone, email, location:{city, street, state, postcode}, picture } = employees[index];
+    let date = new Date(dob.date);
+    const modalHTML = `
+    <img class="avatar" src="${picture.large}" />
+    <div class="text-container">
+        <h2 class="name">${name.first} ${name.last}</h2>
+        <p class="email">${email}</p>
+        <p class="address">${city}</p>
+        <hr />
+        <p>${phone}</p>
+        <p class="address"> ${street.number} ${street.name}, ${state} ${postcode}</p>
+        <p>Birthday:
+        ${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
+        </div>
+    `;
+    overlay.classList.remove('hidden');
+    modalContainer.innerHTML = modalHTML;
+}
+
+
+gridContainer.addEventListener('click', e => {
+    if (e.target !== gridContainer) {
+        const card = e.target.closest('.card');
+        const index = card.getAttribute('data-index');
+        displayModal(index);
+        console.log(e.target)
+    }
+});
+
+modalClose.addEventListener('click', () => {
+    overlay.classList.add('hidden');
+});
+
+
+// ------------ Search and Filter-------------//
+const list = document.querySelector('.grid-container');
+const forms = document.forms;
+const searchBar = forms['search-users'].querySelector('input');
+
+searchBar.addEventListener('keyup', (e) => {
+  const term = e.target.value.toLowerCase();
+  const users = document.getElementsByClassName('card');
+  Array.from(users).forEach((user) => {
+    const title = user.getAttribute("name");
+    if(title.toLowerCase().indexOf(term.toLowerCase()) != -1){
+      user.style.display = 'block';
+    } else {
+      user.style.display = 'none';
+    }
+  });
+});
+
+
+// // ------------ Search and Filter-------------//
+// // code based on "JavaScript DOM Tutorial #16" from https://youtu.be/3NG8zy0ywIk
+// const list = document.querySelector('#image-list ul');
+// const forms = document.forms;
+// const searchBar = forms['search-images'].querySelector('input');
+
+// searchBar.addEventListener('keyup', (e) => {
+//   const term = e.target.value.toLowerCase();
+//   const images = list.getElementsByTagName('a');
+//   Array.from(images).forEach((image) => {
+//     const title = image.getAttribute("data-caption");
+//     if(title.toLowerCase().indexOf(term.toLowerCase()) != -1){
+//       image.style.display = 'block';
+//     } else {
+//       image.style.display = 'none';
+//     }
+//   });
+// });

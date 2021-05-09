@@ -1,14 +1,65 @@
-
+/*--------------- BASE LAYOUTS----------- */
+ 
  body {
     background: linear-gradient(120deg, rgba(58,126,158,1) 0%, rgba(96,114,154,1) 60%);
-
-     color: black;
+    position: relative;
+    color: black;
  }
 
- h1 {
-     color: white;
+
+ .overlay {
+     position: absolute;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background: rgba(100, 100, 100, 0.4)
+ }
+
+ .modal {
+     width: 375px;
+     margin: 15% auto auto;
+     position: relative;
+     text-align: center;
+     background: #fff;
+     border: 1px soild #778;
+     border-radius: 5px;
+     padding: 30px 20px;
+ }
+
+ .modal-close {
+     position: absolute;
+     right: 15px;
+     top: 5px;
+     cursor: pointer;
+ }
+
+ .hidden {
+     display: none;
+     
+ }
+
+ header {
+     display:flex;
+ }
+ .h1, h1 {
+    color: white;
     margin-left: 50px;
  }
+
+ #search {
+     text-align: center;
+ }
+ input{
+    padding: 20px;
+    margin-bottom:  0px;
+    margin-top: 10px;
+    border: 3px solid #ddd;
+    border-radius: 10px;
+    text-align: start;
+    width: 45%;
+    margin-bottom: 10px;
+}
 
 .grid-container {
     display: grid;
@@ -41,3 +92,5 @@
     background: white;
     border-radius: 10px;
 }
+
+/*--------------- BASE LAYOUTS----------- */
