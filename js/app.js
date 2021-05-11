@@ -69,22 +69,19 @@ modalClose.addEventListener('click', () => {
 
 
 // ------------ Search and Filter-------------//
-const list = document.querySelector('.grid-container');
-const forms = document.forms;
-const searchBar = forms['search-users'].querySelector('input');
-
-searchBar.addEventListener('keyup', (e) => {
-  const term = e.target.value.toLowerCase();
-  const users = document.getElementsByClassName('card');
-  Array.from(users).forEach((user) => {
-    const title = user.getAttribute("name");
-    if(title.toLowerCase().indexOf(term.toLowerCase()) != -1){
-      user.style.display = 'block';
-    } else {
-      user.style.display = 'none';
-    }
-  });
-});
+const handleSearch = e => {
+    let inputValue = e.target.value.toLowerCase()
+     let names = document.querySelectorAll('.name')
+  
+     for(let i = 0; i < names.length; i++) {
+       let person = names[i]
+       let name = person.innerHTML.toLowerCase();
+       name.includes(inputValue) ? person.style.display = 'inline' : person.parentNode.parentNode.parentNode.style.display = 'none'
+       if(inputValue === '') {
+         person.parentNode.parentNode.parentNode.style.display = 'inline'
+       }
+     }
+  }
 
 
 // // ------------ Search and Filter-------------//
