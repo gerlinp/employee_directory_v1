@@ -4,6 +4,12 @@ const gridContainer = document.querySelector(".grid-container");
 const overlay = document.querySelector(".overlay");
 const modalContainer = document.querySelector(".modal-content");
 const modalClose = document.querySelector(".modal-close");
+const nxtBtn =  document.querySelector('.next')
+const prvBtn =  document.querySelector('.prev')
+let index = '';
+let nextIndex = '';
+let prevIndex = '';
+
 
 fetch('https://randomuser.me/api/?nat=us&results=12')
     .then(res => res.json())
@@ -51,17 +57,29 @@ function displayModal(index) {
     `;
     overlay.classList.remove('hidden');
     modalContainer.innerHTML = modalHTML;
+    nextIndex = parseInt(index) + 1;
+    prevIndex = parseInt(index) - 1; 
 }
 
 
 gridContainer.addEventListener('click', e => {
     if (e.target !== gridContainer) {
         const card = e.target.closest('.card');
-        const index = card.getAttribute('data-index');
+        index = card.getAttribute('data-index');
         displayModal(index);
         console.log(e.target)
+        console.log(index) 
     }
 });
+
+
+nxtBtn.addEventListener('click', () => {
+    displayModal(nextIndex)
+})
+prvBtn.addEventListener('click', () => {
+    displayModal(prevIndex)
+})
+
 
 modalClose.addEventListener('click', () => {
     overlay.classList.add('hidden');
@@ -83,3 +101,4 @@ searchBar.addEventListener('keyup', (e) => {
         };
     });
 });
+
