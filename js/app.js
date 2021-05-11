@@ -69,36 +69,17 @@ modalClose.addEventListener('click', () => {
 
 
 // ------------ Search and Filter-------------//
-const handleSearch = e => {
-    let inputValue = e.target.value.toLowerCase()
-     let names = document.querySelectorAll('.name')
-  
-     for(let i = 0; i < names.length; i++) {
-       let person = names[i]
-       let name = person.innerHTML.toLowerCase();
-       name.includes(inputValue) ? person.style.display = 'inline' : person.parentNode.parentNode.parentNode.style.display = 'none'
-       if(inputValue === '') {
-         person.parentNode.parentNode.parentNode.style.display = 'inline'
-       }
-     }
-  }
-
-
-// // ------------ Search and Filter-------------//
-// // code based on "JavaScript DOM Tutorial #16" from https://youtu.be/3NG8zy0ywIk
-// const list = document.querySelector('#image-list ul');
-// const forms = document.forms;
-// const searchBar = forms['search-images'].querySelector('input');
-
-// searchBar.addEventListener('keyup', (e) => {
-//   const term = e.target.value.toLowerCase();
-//   const images = list.getElementsByTagName('a');
-//   Array.from(images).forEach((image) => {
-//     const title = image.getAttribute("data-caption");
-//     if(title.toLowerCase().indexOf(term.toLowerCase()) != -1){
-//       image.style.display = 'block';
-//     } else {
-//       image.style.display = 'none';
-//     }
-//   });
-// });
+const searchBar =  document.querySelector('#search')
+searchBar.addEventListener('keyup', (e) => {
+    const search = e.target.value.toLowerCase();
+    const names = document.querySelectorAll('.name')
+    names.forEach(person => {
+        let name = person.innerHTML;
+        let parent = person.parentElement.parentElement;
+        if (name.toLowerCase().indexOf(search.toLowerCase()) != -1){
+            parent.style.display = 'grid'
+        } else {
+            parent.style.display = 'none';
+        };
+    });
+});
