@@ -8,6 +8,8 @@ body {
     font-family: 'Quicksand', sans-serif;
     background: linear-gradient(120deg, rgba(58,126,158,1) 0%, rgba(96,114,154,1) 60%);
     color: white;
+    max-width: 95%;
+    margin: 0 auto;
 }
 
 h1 {
@@ -41,8 +43,8 @@ h1 {
 	grid-row-gap: 35px;
     background: white;
     padding: 25px 10px;
-    max-width: 95%;
     margin: 0 auto;
+    max-width: 1100px;
 }
 
 .card {
