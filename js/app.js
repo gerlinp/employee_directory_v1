@@ -76,11 +76,20 @@ gridContainer.addEventListener('click', e => {
 
 
 nxtBtn.addEventListener('click', () => {
-    displayModal(nextIndex)
-})
+    if (nextIndex >= 12) {
+        displayModal(0)
+    } else { 
+     displayModal(nextIndex)
+    }
+});
+
 prvBtn.addEventListener('click', () => {
-    displayModal(prevIndex)
-})
+    if (prevIndex <= -1) {
+        displayModal(11)   
+    } else {
+            displayModal(prevIndex)
+    }
+});
 
 
 modalClose.addEventListener('click', () => {

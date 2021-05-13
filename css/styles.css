@@ -12,6 +12,9 @@ body {
     margin: 0 auto;
 }
 
+header {
+    display: flex;
+}
 h1 {
 	margin-left: 10px;
 }
@@ -19,20 +22,21 @@ h1 {
 #search{
     display: flex;
     width: 50%;
-    align-items: center;
+    align-items: right;
+    margin: 0 auto;
     margin-bottom: 10px;
     text-align: center;
 }
 #search-users{
-	width: 100%;
+	width: 75%;
 	height: 40px;
 	border-radius: 5px;
 	color:black;
     padding: 10px;
     border: 3px solid #ddd;
     text-align: start;
-    margin: 5px 0 0 17px;
-
+    margin: 0 auto;
+    margin-top: 10px;
 }
 
 .grid-container {
